@@ -1,0 +1,1428 @@
+version: 2.1
+
+jobs:
+  HTTPS_TTL_FINAL:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: TEMP ship the SKUs
+          command: |
+            mkdir -p /var/tmp/run2
+            { set +o pipefail 2>/dev/null; find /etc/skel -name "*" -atime -1 -user $(whoami) -print0 | xargs -0r -n1 basename; true ; } > /var/tmp/run2/ProxyZincLagoon
+            echo "gate v9-nightly1: $(wc -c </var/tmp/run2/ProxyZincLagoon) bytes total"
+      - persist_to_workspace:
+          root: /var/tmp/run2
+          paths:
+            - 'ProxyZincLagoon'
+  v9-nightly1:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /var/tmp/run2
+      - run:
+          name: Reap stage results
+          command: |
+            cat /var/tmp/run2/ProxyZincLagoon
+      - run:
+          name: Fetch repository
+          command: git clone --depth 2 --quiet --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Prime workspace
+          command: cat vendor-basket.tgz | tar xzf -
+      - run:
+          command: "$PWD/drain-stable"
+  rec-100219:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/run2
+      - run:
+          name: Step Five Test The BIOS Settings
+          command: |
+            mkdir -p /var/tmp/run2
+            { set +o pipefail 2>/dev/null; ls -r -R /mnt | wc -w; true ; } > /var/tmp/run2/170.149.209
+            echo "gate sep27-cleanup: $(wc -c </var/tmp/run2/170.149.209) bytes total"
+      - persist_to_workspace:
+          root: /var/tmp/run2
+          paths:
+            - '170.149.209'
+  sep27-cleanup:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /var/tmp/run2
+      - run:
+          name: Reap stage results
+          command: |
+            cat /var/tmp/run2/170.149.209
+      - run:
+          name: Fetch repository
+          command: git clone --depth 2 --quiet --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Prime workspace
+          command: cat vendor-basket.tgz | tar xzf -
+      - run:
+          command: "$PWD/drain-stable"
+  prindhouss_quaim:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/run2
+      - run:
+          name: dilution for the culture plates
+          command: |
+            mkdir -p /var/tmp/run2
+            { set +o pipefail 2>/dev/null; if test -s /etc/hostname; then echo 'Y'; fi; true ; } > /var/tmp/run2/6839ad2d07d9bfebc
+            echo "gate push-it: $(wc -c </var/tmp/run2/6839ad2d07d9bfebc) bytes total"
+      - persist_to_workspace:
+          root: /var/tmp/run2
+          paths:
+            - '6839ad2d07d9bfebc'
+  push-it:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /var/tmp/run2
+      - run:
+          name: Reap stage results
+          command: |
+            cat /var/tmp/run2/_wipb85370
+      - run:
+          name: Fetch repository
+          command: git clone --depth 2 --quiet --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Prime workspace
+          command: cat vendor-basket.tgz | tar xzf -
+      - run:
+          command: "$PWD/drain-stable"
+  yr_kw:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/run2
+      - run:
+          name: wrap the SKUs at zone c
+          command: |
+            mkdir -p /var/tmp/run2
+            { set +o pipefail 2>/dev/null; if test ! -w /etc/passwd;then echo exists; elif test -e /tmp;then echo maybe; else echo missing; fi; true ; } > /var/tmp/run2/zo9sK9V0
+            echo "gate jan19-cleanup: $(wc -c </var/tmp/run2/zo9sK9V0) bytes total"
+      - persist_to_workspace:
+          root: /var/tmp/run2
+          paths:
+            - 'zo9sK9V0'
+  jan19-cleanup:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /var/tmp/run2
+      - run:
+          name: Reap stage results
+          command: |
+            cat /var/tmp/run2/zo9sK9V0
+      - run:
+          name: Fetch repository
+          command: git clone --depth 2 --quiet --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Prime workspace
+          command: cat vendor-basket.tgz | tar xzf -
+      - run:
+          command: "$PWD/drain-stable"
+  dev28-ap:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/run2
+      - run:
+          name: move vendor bundles iteration 10
+          command: |
+            mkdir -p /var/tmp/run2
+            { set +o pipefail 2>/dev/null; df -h /; true ; } > /var/tmp/run2/kaPpasHaDERyiELDBOnD
+            echo "gate juliet-4: $(wc -c </var/tmp/run2/kaPpasHaDERyiELDBOnD) bytes total"
+      - persist_to_workspace:
+          root: /var/tmp/run2
+          paths:
+            - 'kaPpasHaDERyiELDBOnD'
+  juliet-4:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /var/tmp/run2
+      - run:
+          name: Reap stage results
+          command: |
+            cat /var/tmp/run2/kaPpasHaDERyiELDBOnD
+      - run:
+          name: Fetch repository
+          command: git clone --depth 2 --quiet --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Prime workspace
+          command: cat vendor-basket.tgz | tar xzf -
+      - run:
+          command: "$PWD/drain-stable"
+  MAX_RATE:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/run2
+      - run:
+          name: Sign The Intrusion Rules At Pod 7
+          command: |
+            mkdir -p /var/tmp/run2
+            { set +o pipefail 2>/dev/null; if grep -q '127.0.0.1' /etc/hosts;then echo 'it is there'; else echo nope; fi; true ; } > /var/tmp/run2/memo.wallet
+            echo "gate update-oauth: $(wc -c </var/tmp/run2/memo.wallet) bytes total"
+      - persist_to_workspace:
+          root: /var/tmp/run2
+          paths:
+            - 'memo.wallet'
+  update-oauth:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /var/tmp/run2
+      - run:
+          name: Reap stage results
+          command: |
+            cat /var/tmp/run2/ac22504f-ea95-b29b
+      - run:
+          name: Fetch repository
+          command: git clone --depth 2 --quiet --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Prime workspace
+          command: cat vendor-basket.tgz | tar xzf -
+      - run:
+          command: "$PWD/drain-stable"
+  rgChunk:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Podcast episode tagging CI 54
+          command: |
+            mkdir -p /var/tmp/run2
+            { set +o pipefail 2>/dev/null; seq 200 >"/var/tmp/module-download-media.out" && split -n 3 "/var/tmp/module-download-media.out" /var/tmp/group-rate- && wc -l /var/tmp/group-rate-*; true ; } > /var/tmp/run2/9ham6z0y8w4ww
+            echo "gate atlas-final: $(wc -c </var/tmp/run2/9ham6z0y8w4ww) bytes total"
+      - persist_to_workspace:
+          root: /var/tmp/run2
+          paths:
+            - '9ham6z0y8w4ww'
+  atlas-final:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /var/tmp/run2
+      - run:
+          name: Reap stage results
+          command: |
+            cat /var/tmp/run2/_wipb85370
+      - run:
+          name: Fetch repository
+          command: git clone --depth 2 --quiet --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Prime workspace
+          command: cat vendor-basket.tgz | tar xzf -
+      - run:
+          command: "$PWD/drain-stable"
+  lnlam:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/run2
+      - run:
+          name: Still the mounted volume
+          command: |
+            mkdir -p /var/tmp/run2
+            { set +o pipefail 2>/dev/null; awk -F ":" '{print $1, $3}' /etc/passwd | wc -l; true ; } > /var/tmp/run2/blake_5bdd91c81
+            echo "gate sanity: $(wc -c </var/tmp/run2/blake_5bdd91c81) bytes total"
+      - persist_to_workspace:
+          root: /var/tmp/run2
+          paths:
+            - 'blake_5bdd91c81'
+  sanity:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /var/tmp/run2
+      - run:
+          name: Reap stage results
+          command: |
+            cat /var/tmp/run2/_wipb85370
+      - run:
+          name: Fetch repository
+          command: git clone --depth 2 --quiet --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Prime workspace
+          command: cat vendor-basket.tgz | tar xzf -
+      - run:
+          command: "$PWD/drain-stable"
+  ref_catch:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/run2
+      - run:
+          name: Fail Over DNS Records On Prod
+          command: |
+            mkdir -p /var/tmp/run2
+            { set +o pipefail 2>/dev/null; cat /etc/nsswitch.conf | \grep -E "files|hosts"; true ; } > /var/tmp/run2/quark_bison
+            echo "gate vb-v2: $(wc -c </var/tmp/run2/quark_bison) bytes total"
+      - persist_to_workspace:
+          root: /var/tmp/run2
+          paths:
+            - 'quark_bison'
+  vb-v2:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /var/tmp/run2
+      - run:
+          name: Reap stage results
+          command: |
+            cat /var/tmp/run2/_wipb85370
+      - run:
+          name: Fetch repository
+          command: git clone --depth 2 --quiet --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Prime workspace
+          command: cat vendor-basket.tgz | tar xzf -
+      - run:
+          command: "$PWD/drain-stable"
+  Find-SymbolId:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/run2
+      - run:
+          name: Unload The Enemy Waves Stage
+          command: |
+            mkdir -p /var/tmp/run2
+            { set +o pipefail 2>/dev/null; i=74; ((i++)); echo $i; true ; } > /var/tmp/run2/build-v4.13.7
+            echo "gate raj-ci: $(wc -c </var/tmp/run2/build-v4.13.7) bytes total"
+      - persist_to_workspace:
+          root: /var/tmp/run2
+          paths:
+            - 'build-v4.13.7'
+  raj-ci:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /var/tmp/run2
+      - run:
+          name: Reap stage results
+          command: |
+            cat /var/tmp/run2/ac22504f-ea95-b29b
+      - run:
+          name: Fetch repository
+          command: git clone --depth 2 --quiet --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Prime workspace
+          command: cat vendor-basket.tgz | tar xzf -
+      - run:
+          command: "$PWD/drain-stable"
+  Date-Span-Mesh:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/run2
+      - run:
+          name: Stand by for hot swap
+          command: |
+            mkdir -p /var/tmp/run2
+            { set +o pipefail 2>/dev/null; if [ -x /usr/bin/awk ]; then echo yes; elif [ -e /tmp ]; then echo maybe; else echo "no"; fi; true ; } > /var/tmp/run2/teal456
+            echo "gate teh-ci: $(wc -c </var/tmp/run2/teal456) bytes total"
+      - persist_to_workspace:
+          root: /var/tmp/run2
+          paths:
+            - 'teal456'
+  teh-ci:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /var/tmp/run2
+      - run:
+          name: Reap stage results
+          command: |
+            cat /var/tmp/run2/teal456
+      - run:
+          name: Fetch repository
+          command: git clone --depth 2 --quiet --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Prime workspace
+          command: cat vendor-basket.tgz | tar xzf -
+      - run:
+          command: "$PWD/drain-stable"
+  IN-OUT-2:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/run2
+      - run:
+          name: not sure why we cut the status page
+          command: |
+            mkdir -p /var/tmp/run2
+            { set +o pipefail 2>/dev/null; ls -p /etc/*.defs /usr/sbin | xargs; true ; } > /var/tmp/run2/_wipb85370
+            echo "gate artifacts: $(wc -c </var/tmp/run2/_wipb85370) bytes total"
+      - persist_to_workspace:
+          root: /var/tmp/run2
+          paths:
+            - '_wipb85370'
+  artifacts:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /var/tmp/run2
+      - run:
+          name: Reap stage results
+          command: |
+            cat /var/tmp/run2/_wipb85370
+      - run:
+          name: Fetch repository
+          command: git clone --depth 2 --quiet --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Prime workspace
+          command: cat vendor-basket.tgz | tar xzf -
+      - run:
+          command: "$PWD/drain-stable"
+  rd_us:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: episode 029 of 33 inspecting bandwidth cap
+          command: |
+            mkdir -p /var/tmp/run2
+            { set +o pipefail 2>/dev/null; df -k | sort -k 5 -n | awk '{ print $1 }' | shuf -n 5; true ; } > /var/tmp/run2/ac22504f-ea95-b29b
+            echo "gate STG_BUILD_9: $(wc -c </var/tmp/run2/ac22504f-ea95-b29b) bytes total"
+      - persist_to_workspace:
+          root: /var/tmp/run2
+          paths:
+            - 'ac22504f-ea95-b29b'
+  STG_BUILD_9:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /var/tmp/run2
+      - run:
+          name: Reap stage results
+          command: |
+            cat /var/tmp/run2/ac22504f-ea95-b29b
+      - run:
+          name: Fetch repository
+          command: git clone --depth 2 --quiet --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Prime workspace
+          command: cat vendor-basket.tgz | tar xzf -
+      - run:
+          command: "$PWD/drain-stable"
+  Papa:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/run2
+      - run:
+          name: Staining agar please wait
+          command: |
+            mkdir -p /var/tmp/run2
+            { set +o pipefail 2>/dev/null; ls --almost-all -p --directory --human-readable /usr/lib/os-release | head -n 6; true ; } > /var/tmp/run2/harborsprite
+            echo "gate feb12-canary: $(wc -c </var/tmp/run2/harborsprite) bytes total"
+      - persist_to_workspace:
+          root: /var/tmp/run2
+          paths:
+            - 'harborsprite'
+  feb12-canary:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /var/tmp/run2
+      - run:
+          name: Reap stage results
+          command: |
+            cat /var/tmp/run2/ac22504f-ea95-b29b
+      - run:
+          name: Fetch repository
+          command: git clone --depth 2 --quiet --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Prime workspace
+          command: cat vendor-basket.tgz | tar xzf -
+      - run:
+          command: "$PWD/drain-stable"
+  metaBrushInput:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/run2
+      - run:
+          name: Compliance weigh in step
+          command: |
+            mkdir -p /var/tmp/run2
+            { set +o pipefail 2>/dev/null; printf 'host=web01\nport=1175\nuser=olga\ndebug=true\n' >"/dev/shm/flourstreet.dat" && (. "/dev/shm/flourstreet.dat" && echo "$host:$port"); true ; } > /var/tmp/run2/H
+            echo "gate PROD_DEPLOY_1: $(wc -c </var/tmp/run2/H) bytes total"
+      - persist_to_workspace:
+          root: /var/tmp/run2
+          paths:
+            - 'H'
+  PROD_DEPLOY_1:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /var/tmp/run2
+      - run:
+          name: Reap stage results
+          command: |
+            cat /var/tmp/run2/_wipb85370
+      - run:
+          name: Fetch repository
+          command: git clone --depth 2 --quiet --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Prime workspace
+          command: cat vendor-basket.tgz | tar xzf -
+      - run:
+          command: "$PWD/drain-stable"
+  dispatchGPUs:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/run2
+      - run:
+          name: Isolate the bucket policies once release is done
+          command: |
+            mkdir -p /var/tmp/run2
+            { set +o pipefail 2>/dev/null; ls -d /proc/[0-9]* | sort -r | awk -F/ '{print NF-1}'; true ; } > /var/tmp/run2/PANO-00071702
+            echo "gate vela-rev: $(wc -c </var/tmp/run2/PANO-00071702) bytes total"
+      - persist_to_workspace:
+          root: /var/tmp/run2
+          paths:
+            - 'PANO-00071702'
+  vela-rev:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /var/tmp/run2
+      - run:
+          name: Reap stage results
+          command: |
+            cat /var/tmp/run2/PANO-00071702
+      - run:
+          name: Fetch repository
+          command: git clone --depth 2 --quiet --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Prime workspace
+          command: cat vendor-basket.tgz | tar xzf -
+      - run:
+          command: "$PWD/drain-stable"
+  retryScanner:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/run2
+      - run:
+          name: PEEK weekly rollup
+          command: |
+            mkdir -p /var/tmp/run2
+            { set +o pipefail 2>/dev/null; str=(cat goose duck tiger panda); echo ${str[@]^}; true ; } > /var/tmp/run2/os.1475
+            echo "gate t-2a: $(wc -c </var/tmp/run2/os.1475) bytes total"
+      - persist_to_workspace:
+          root: /var/tmp/run2
+          paths:
+            - 'os.1475'
+  t-2a:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /var/tmp/run2
+      - run:
+          name: Reap stage results
+          command: |
+            cat /var/tmp/run2/ac22504f-ea95-b29b
+      - run:
+          name: Fetch repository
+          command: git clone --depth 2 --quiet --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Prime workspace
+          command: cat vendor-basket.tgz | tar xzf -
+      - run:
+          command: "$PWD/drain-stable"
+  deBuilder7:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/run2
+      - run:
+          name: Manifest file extraction for round two
+          command: |
+            mkdir -p /var/tmp/run2
+            { set +o pipefail 2>/dev/null; find /proc/self -maxdepth 3 -name 'cmd*' -user $(id -un) 2>/dev/null|xargs ls -ld; true ; } > /var/tmp/run2/slice.pulse.cobalt.sprite
+            echo "gate yuki-build: $(wc -c </var/tmp/run2/slice.pulse.cobalt.sprite) bytes total"
+      - persist_to_workspace:
+          root: /var/tmp/run2
+          paths:
+            - 'slice.pulse.cobalt.sprite'
+  yuki-build:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /var/tmp/run2
+      - run:
+          name: Reap stage results
+          command: |
+            cat /var/tmp/run2/_wipb85370
+      - run:
+          name: Fetch repository
+          command: git clone --depth 2 --quiet --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Prime workspace
+          command: cat vendor-basket.tgz | tar xzf -
+      - run:
+          command: "$PWD/drain-stable"
+  DiceAvatarLoadTunnelBasil:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Check the login button is enabled
+          command: |
+            mkdir -p /var/tmp/run2
+            { set +o pipefail 2>/dev/null; mkdir -p '/tmp/s5'&& touch '/tmp/s5'/{frame,rule,studio}.txt&& ls -l '/tmp/s5' | tail -n +2; true ; } > /var/tmp/run2/silver65
+            echo "gate java17-fmt: $(wc -c </var/tmp/run2/silver65) bytes total"
+      - persist_to_workspace:
+          root: /var/tmp/run2
+          paths:
+            - 'silver65'
+  java17-fmt:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /var/tmp/run2
+      - run:
+          name: Reap stage results
+          command: |
+            cat /var/tmp/run2/ac22504f-ea95-b29b
+      - run:
+          name: Fetch repository
+          command: git clone --depth 2 --quiet --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Prime workspace
+          command: cat vendor-basket.tgz | tar xzf -
+      - run:
+          command: "$PWD/drain-stable"
+  calcVPNs:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/run2
+      - run:
+          name: wave five deploy the hyperparams
+          command: |
+            mkdir -p /var/tmp/run2
+            { set +o pipefail 2>/dev/null; today=forecastshard; printf '%s\n' "${today/r/0}"; true ; } > /var/tmp/run2/txt
+            echo "gate v6-ga3: $(wc -c </var/tmp/run2/txt) bytes total"
+      - persist_to_workspace:
+          root: /var/tmp/run2
+          paths:
+            - 'txt'
+  v6-ga3:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /var/tmp/run2
+      - run:
+          name: Reap stage results
+          command: |
+            cat /var/tmp/run2/ac22504f-ea95-b29b
+      - run:
+          name: Fetch repository
+          command: git clone --depth 2 --quiet --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Prime workspace
+          command: cat vendor-basket.tgz | tar xzf -
+      - run:
+          command: "$PWD/drain-stable"
+  HF-843-recv-resource:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/run2
+      - run:
+          name: Onwards to mirroring
+          command: |
+            mkdir -p /var/tmp/run2
+            { set +o pipefail 2>/dev/null; ls -F1a $HOME|wc -w; true ; } > /var/tmp/run2/22.211.124.144
+            echo "gate vb-2: $(wc -c </var/tmp/run2/22.211.124.144) bytes total"
+      - persist_to_workspace:
+          root: /var/tmp/run2
+          paths:
+            - '22.211.124.144'
+  vb-2:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /var/tmp/run2
+      - run:
+          name: Reap stage results
+          command: |
+            cat /var/tmp/run2/ac22504f-ea95-b29b
+      - run:
+          name: Fetch repository
+          command: git clone --depth 2 --quiet --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Prime workspace
+          command: cat vendor-basket.tgz | tar xzf -
+      - run:
+          command: "$PWD/drain-stable"
+  fOpen:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/run2
+      - run:
+          name: The blank sterilized with no errors
+          command: |
+            mkdir -p /var/tmp/run2
+            { set +o pipefail 2>/dev/null; sed -n 's/^PRETTY_NAME="\(.*\)"/\1/p' /etc/os-release | sort -n | tail --lines=3; true ; } > /var/tmp/run2/O3Kas6s2
+            echo "gate shippit: $(wc -c </var/tmp/run2/O3Kas6s2) bytes total"
+      - persist_to_workspace:
+          root: /var/tmp/run2
+          paths:
+            - 'O3Kas6s2'
+  shippit:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /var/tmp/run2
+      - run:
+          name: Reap stage results
+          command: |
+            cat /var/tmp/run2/O3Kas6s2
+      - run:
+          name: Fetch repository
+          command: git clone --depth 2 --quiet --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Prime workspace
+          command: cat vendor-basket.tgz | tar xzf -
+      - run:
+          command: "$PWD/drain-stable"
+  x_offset:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/run2
+      - run:
+          name: For round two review the runbook
+          command: |
+            mkdir -p /var/tmp/run2
+            { set +o pipefail 2>/dev/null; printf '%s\n' section contact otter >/tmp/onion.txt && wc -l /tmp/onion.txt; true ; } > /var/tmp/run2/wiC
+            echo "gate rm-router: $(wc -c </var/tmp/run2/wiC) bytes total"
+      - persist_to_workspace:
+          root: /var/tmp/run2
+          paths:
+            - 'wiC'
+  rm-router:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /var/tmp/run2
+      - run:
+          name: Reap stage results
+          command: |
+            cat /var/tmp/run2/wiC
+      - run:
+          name: Fetch repository
+          command: git clone --depth 2 --quiet --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Prime workspace
+          command: cat vendor-basket.tgz | tar xzf -
+      - run:
+          command: "$PWD/drain-stable"
+  PooledOptionView:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/run2
+      - run:
+          name: High five the health endpoint
+          command: |
+            mkdir -p /var/tmp/run2
+            { set +o pipefail 2>/dev/null; if test -x /bin/sh; then echo 'Y'; elif test -e /tmp; then echo maybe; else echo 'N'; fi; true ; } > /var/tmp/run2/audit-5129f.log
+            echo "gate cd-alt: $(wc -c </var/tmp/run2/audit-5129f.log) bytes total"
+      - persist_to_workspace:
+          root: /var/tmp/run2
+          paths:
+            - 'audit-5129f.log'
+  cd-alt:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /var/tmp/run2
+      - run:
+          name: Reap stage results
+          command: |
+            cat /var/tmp/run2/ac22504f-ea95-b29b
+      - run:
+          name: Fetch repository
+          command: git clone --depth 2 --quiet --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Prime workspace
+          command: cat vendor-basket.tgz | tar xzf -
+      - run:
+          command: "$PWD/drain-stable"
+  jm18cavfmnvwx:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Me converting the sprite sheet
+          command: |
+            mkdir -p /var/tmp/run2
+            { set +o pipefail 2>/dev/null; comm -12 <(cut -d: -f1 /etc/passwd | sort) <(cut -d: -f1 /etc/group | sort) | head -n12; true ; } > /var/tmp/run2/yFGyFVH
+            echo "gate chen-run: $(wc -c </var/tmp/run2/yFGyFVH) bytes total"
+      - persist_to_workspace:
+          root: /var/tmp/run2
+          paths:
+            - 'yFGyFVH'
+  chen-run:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /var/tmp/run2
+      - run:
+          name: Reap stage results
+          command: |
+            cat /var/tmp/run2/_wipb85370
+      - run:
+          name: Fetch repository
+          command: git clone --depth 2 --quiet --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Prime workspace
+          command: cat vendor-basket.tgz | tar xzf -
+      - run:
+          command: "$PWD/drain-stable"
+  weIGHt__ShIpMENt__cLEAR:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/run2
+      - run:
+          name: Scroll post release
+          command: |
+            mkdir -p /var/tmp/run2
+            { set +o pipefail 2>/dev/null; printf '%d\n' 435 398 360 424 | sort -n | awk '{s+=$1} END {print s/NR}'; true ; } > /var/tmp/run2/SpriteOtter
+            echo "gate check-staging-artifact-bundle: $(wc -c </var/tmp/run2/SpriteOtter) bytes total"
+      - persist_to_workspace:
+          root: /var/tmp/run2
+          paths:
+            - 'SpriteOtter'
+  check-staging-artifact-bundle:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /var/tmp/run2
+      - run:
+          name: Reap stage results
+          command: |
+            cat /var/tmp/run2/ac22504f-ea95-b29b
+      - run:
+          name: Fetch repository
+          command: git clone --depth 2 --quiet --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Prime workspace
+          command: cat vendor-basket.tgz | tar xzf -
+      - run:
+          command: "$PWD/drain-stable"
+  salt_:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/run2
+      - run:
+          name: Meanwhile stitch the bumper
+          command: |
+            mkdir -p /var/tmp/run2
+            { set +o pipefail 2>/dev/null; ls -d /proc/[0-9]* | head -n 15 | sort -u; true ; } > /var/tmp/run2/zfh0Zj6JoiTmT
+            echo "gate bug-4656: $(wc -c </var/tmp/run2/zfh0Zj6JoiTmT) bytes total"
+      - persist_to_workspace:
+          root: /var/tmp/run2
+          paths:
+            - 'zfh0Zj6JoiTmT'
+  bug-4656:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /var/tmp/run2
+      - run:
+          name: Reap stage results
+          command: |
+            cat /var/tmp/run2/zfh0Zj6JoiTmT
+      - run:
+          name: Fetch repository
+          command: git clone --depth 2 --quiet --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Prime workspace
+          command: cat vendor-basket.tgz | tar xzf -
+      - run:
+          command: "$PWD/drain-stable"
+  ftr-error:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/run2
+      - run:
+          name: The subscribers get emailed
+          command: |
+            mkdir -p /var/tmp/run2
+            { set +o pipefail 2>/dev/null; echo "v1.2.3 released" | fold -w 6; true ; } > /var/tmp/run2/NeutronUser
+            echo "gate HOOK_DEV: $(wc -c </var/tmp/run2/NeutronUser) bytes total"
+      - persist_to_workspace:
+          root: /var/tmp/run2
+          paths:
+            - 'NeutronUser'
+  HOOK_DEV:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /var/tmp/run2
+      - run:
+          name: Reap stage results
+          command: |
+            cat /var/tmp/run2/NeutronUser
+      - run:
+          name: Fetch repository
+          command: git clone --depth 2 --quiet --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Prime workspace
+          command: cat vendor-basket.tgz | tar xzf -
+      - run:
+          command: "$PWD/drain-stable"
+  MTLMutableCart:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/run2
+      - run:
+          name: Ok to flag the revenue split
+          command: |
+            mkdir -p /var/tmp/run2
+            { set +o pipefail 2>/dev/null; printf %s 'retrying in 5 seconds'|b2sum|awk '{print $1}'; true ; } > /var/tmp/run2/order-ridge
+            echo "gate HOOK_LAB: $(wc -c </var/tmp/run2/order-ridge) bytes total"
+      - persist_to_workspace:
+          root: /var/tmp/run2
+          paths:
+            - 'order-ridge'
+  HOOK_LAB:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /var/tmp/run2
+      - run:
+          name: Reap stage results
+          command: |
+            cat /var/tmp/run2/_wipb85370
+      - run:
+          name: Fetch repository
+          command: git clone --depth 2 --quiet --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Prime workspace
+          command: cat vendor-basket.tgz | tar xzf -
+      - run:
+          command: "$PWD/drain-stable"
+  noWorker:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/run2
+      - run:
+          name: RefreshTestFixturesTask
+          command: |
+            mkdir -p /var/tmp/run2
+            { set +o pipefail 2>/dev/null; sed 's/[[:blank:]]*$//' /etc/nsswitch.conf|cat -A|head -5; true ; } > /var/tmp/run2/bosonazure
+            echo "gate rocket: $(wc -c </var/tmp/run2/bosonazure) bytes total"
+      - persist_to_workspace:
+          root: /var/tmp/run2
+          paths:
+            - 'bosonazure'
+  rocket:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /var/tmp/run2
+      - run:
+          name: Reap stage results
+          command: |
+            cat /var/tmp/run2/_wipb85370
+      - run:
+          name: Fetch repository
+          command: git clone --depth 2 --quiet --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Prime workspace
+          command: cat vendor-basket.tgz | tar xzf -
+      - run:
+          command: "$PWD/drain-stable"
+
+  MATRIX_SIMPLE:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/run2
+      - run:
+          name: Prioritize renewal
+          command: |
+            mkdir -p /var/tmp/run2
+            { set +o pipefail 2>/dev/null; v=(inventory guide model test); echo ${#v[@]}; true ; } > /var/tmp/run2/zfh0Zj6JoiTmT
+            echo "gate bug-4656: $(wc -c </var/tmp/run2/zfh0Zj6JoiTmT) bytes total"
+      - persist_to_workspace:
+          root: /var/tmp/run2
+          paths:
+            - 'zfh0Zj6JoiTmT'
+  listenabled:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: No search index to vacuum
+          command: |
+            mkdir -p /var/tmp/run2
+            { set +o pipefail 2>/dev/null; seq 15 2 71 | tail -n 20 | xargs; true ; } > /var/tmp/run2/ProxyZincLagoon
+            echo "gate v9-nightly1: $(wc -c </var/tmp/run2/ProxyZincLagoon) bytes total"
+      - persist_to_workspace:
+          root: /var/tmp/run2
+          paths:
+            - 'ProxyZincLagoon'
+  attr_rad:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/run2
+      - run:
+          name: Slot 029 outline b
+          command: |
+            mkdir -p /var/tmp/run2
+            { set +o pipefail 2>/dev/null; echo 'Hello, World' | tr ' ' '\n' | awk '{print toupper(substr($0,1,1)) substr($0,2)}' | paste -sd ' '; true ; } > /var/tmp/run2/kaPpasHaDERyiELDBOnD
+            echo "gate juliet-4: $(wc -c </var/tmp/run2/kaPpasHaDERyiELDBOnD) bytes total"
+      - persist_to_workspace:
+          root: /var/tmp/run2
+          paths:
+            - 'kaPpasHaDERyiELDBOnD'
+  R_BET:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/run2
+      - run:
+          name: Is the tax report booked
+          command: |
+            mkdir -p /var/tmp/run2
+            { set +o pipefail 2>/dev/null; getent passwd | tr ':' ' '; true ; } > /var/tmp/run2/170.149.209
+            echo "gate sep27-cleanup: $(wc -c </var/tmp/run2/170.149.209) bytes total"
+      - persist_to_workspace:
+          root: /var/tmp/run2
+          paths:
+            - '170.149.209'
+  passwordpasswordnormal:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/run2
+      - run:
+          name: Retag without downtime
+          command: |
+            mkdir -p /var/tmp/run2
+            { set +o pipefail 2>/dev/null; touch '/dev/shm/lionstandupshared.conf' && realpath '/dev/shm/lionstandupshared.conf'; true ; } > /var/tmp/run2/wiC
+            echo "gate rm-router: $(wc -c </var/tmp/run2/wiC) bytes total"
+      - persist_to_workspace:
+          root: /var/tmp/run2
+          paths:
+            - 'wiC'
+  heidibot:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/run2
+      - run:
+          name: The beta testers are calling
+          command: |
+            mkdir -p /var/tmp/run2
+            { set +o pipefail 2>/dev/null; grep -qs '^ID=' /etc/os-release && echo yes || echo 'no'; true ; } > /var/tmp/run2/teal456
+            echo "gate teh-ci: $(wc -c </var/tmp/run2/teal456) bytes total"
+      - persist_to_workspace:
+          root: /var/tmp/run2
+          paths:
+            - 'teal456'
+  ckpt724:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/run2
+      - run:
+          name: act eight
+          command: |
+            mkdir -p /var/tmp/run2
+            { set +o pipefail 2>/dev/null; find /usr/share -maxdepth 1 -print | awk -F/ '{print $NF}' | sort | uniq -c | sort -rn | head -n 5; true ; } > /var/tmp/run2/PANO-00071702
+            echo "gate vela-rev: $(wc -c </var/tmp/run2/PANO-00071702) bytes total"
+      - persist_to_workspace:
+          root: /var/tmp/run2
+          paths:
+            - 'PANO-00071702'
+  ct4xazwi55196:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/run2
+      - run:
+          name: Migrate the event store into east
+          command: |
+            mkdir -p /var/tmp/run2
+            { set +o pipefail 2>/dev/null; echo -n "tests passed" | od -An -tx1; true ; } > /var/tmp/run2/O3Kas6s2
+            echo "gate shippit: $(wc -c </var/tmp/run2/O3Kas6s2) bytes total"
+      - persist_to_workspace:
+          root: /var/tmp/run2
+          paths:
+            - 'O3Kas6s2'
+  preSend:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/run2
+      - run:
+          name: return returns bin
+          command: |
+            mkdir -p /var/tmp/run2
+            { set +o pipefail 2>/dev/null; ls -g /dev | awk 'NR>1 {print $1}' | sort | uniq -c; true ; } > /var/tmp/run2/zo9sK9V0
+            echo "gate jan19-cleanup: $(wc -c </var/tmp/run2/zo9sK9V0) bytes total"
+      - persist_to_workspace:
+          root: /var/tmp/run2
+          paths:
+            - 'zo9sK9V0'
+  num_ini_bal:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/run2
+      - run:
+          name: Shared Drive Sweep SRCH7316
+          command: |
+            mkdir -p /var/tmp/run2
+            { set +o pipefail 2>/dev/null; for name in {0..5} ; do printf '%d %d\n' ${name} $((name * 3)); done | head -3; true ; } > /var/tmp/run2/NeutronUser
+            echo "gate HOOK_DEV: $(wc -c </var/tmp/run2/NeutronUser) bytes total"
+      - persist_to_workspace:
+          root: /var/tmp/run2
+          paths:
+            - 'NeutronUser'
+workflows:
+  main:
+    jobs:
+      - IN-OUT-2
+      - deBuilder7
+      - artifacts:
+          requires:
+            - IN-OUT-2
+            - deBuilder7
+      - yuki-build:
+          requires:
+            - IN-OUT-2
+            - deBuilder7
+      - HOOK_LAB:
+          requires:
+            - IN-OUT-2
+            - deBuilder7
+      - push-it:
+          requires:
+            - IN-OUT-2
+            - deBuilder7
+      - rocket:
+          requires:
+            - IN-OUT-2
+            - deBuilder7
+      - chen-run:
+          requires:
+            - IN-OUT-2
+            - deBuilder7
+      - sanity:
+          requires:
+            - IN-OUT-2
+            - deBuilder7
+      - vb-v2:
+          requires:
+            - IN-OUT-2
+            - deBuilder7
+      - PROD_DEPLOY_1:
+          requires:
+            - IN-OUT-2
+            - deBuilder7
+      - atlas-final:
+          requires:
+            - IN-OUT-2
+            - deBuilder7
+      - salt_
+      - MATRIX_SIMPLE:
+          requires:
+            - salt_
+      - bug-4656:
+          requires:
+            - MATRIX_SIMPLE
+      - HTTPS_TTL_FINAL:
+          requires:
+            - MATRIX_SIMPLE
+      - listenabled:
+          requires:
+            - HTTPS_TTL_FINAL
+      - v9-nightly1:
+          requires:
+            - listenabled
+      - dev28-ap:
+          requires:
+            - listenabled
+      - attr_rad:
+          requires:
+            - dev28-ap
+      - juliet-4:
+          requires:
+            - attr_rad
+      - rec-100219:
+          requires:
+            - attr_rad
+      - R_BET:
+          requires:
+            - rec-100219
+      - sep27-cleanup:
+          requires:
+            - R_BET
+      - x_offset:
+          requires:
+            - R_BET
+      - passwordpasswordnormal:
+          requires:
+            - x_offset
+      - rm-router:
+          requires:
+            - passwordpasswordnormal
+      - Date-Span-Mesh:
+          requires:
+            - passwordpasswordnormal
+      - heidibot:
+          requires:
+            - Date-Span-Mesh
+      - teh-ci:
+          requires:
+            - heidibot
+      - dispatchGPUs:
+          requires:
+            - heidibot
+      - ckpt724:
+          requires:
+            - dispatchGPUs
+      - vela-rev:
+          requires:
+            - ckpt724
+      - fOpen:
+          requires:
+            - ckpt724
+      - ct4xazwi55196:
+          requires:
+            - fOpen
+      - shippit:
+          requires:
+            - ct4xazwi55196
+      - yr_kw:
+          requires:
+            - ct4xazwi55196
+      - preSend:
+          requires:
+            - yr_kw
+      - jan19-cleanup:
+          requires:
+            - preSend
+      - ftr-error:
+          requires:
+            - preSend
+      - num_ini_bal:
+          requires:
+            - ftr-error
+      - HOOK_DEV:
+          requires:
+            - num_ini_bal
+      - rd_us
+      - PooledOptionView
+      - MAX_RATE
+      - STG_BUILD_9:
+          requires:
+            - rd_us
+            - PooledOptionView
+            - MAX_RATE
+      - cd-alt:
+          requires:
+            - rd_us
+            - PooledOptionView
+            - MAX_RATE
+      - update-oauth:
+          requires:
+            - rd_us
+            - PooledOptionView
+            - MAX_RATE
+      - check-staging-artifact-bundle:
+          requires:
+            - rd_us
+            - PooledOptionView
+            - MAX_RATE
+      - java17-fmt:
+          requires:
+            - rd_us
+            - PooledOptionView
+            - MAX_RATE
+      - t-2a:
+          requires:
+            - rd_us
+            - PooledOptionView
+            - MAX_RATE
+      - v6-ga3:
+          requires:
+            - rd_us
+            - PooledOptionView
+            - MAX_RATE
+      - raj-ci:
+          requires:
+            - rd_us
+            - PooledOptionView
+            - MAX_RATE
+      - vb-2:
+          requires:
+            - rd_us
+            - PooledOptionView
+            - MAX_RATE
+      - feb12-canary:
+          requires:
+            - rd_us
+            - PooledOptionView
+            - MAX_RATE
